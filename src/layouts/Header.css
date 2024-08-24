@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    background-color:#020203;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+}
+
+.nav {
+    width: 100%;
+}
+
+.nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.nav a {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: white;
+}
+

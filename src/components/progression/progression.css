@@ -1,0 +1,9 @@
+.progression {
+  width: 100%;
+  background-color: #fbfbfb;
+  border-radius: 5px;
+}
+
+.progression-label tspan {
+  font-size: 16px;
+}
