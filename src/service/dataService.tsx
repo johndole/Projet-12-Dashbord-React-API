@@ -33,24 +33,6 @@ export class FakeSportStatsGateway implements SportStatsGateway {
     return mockAverageSessionData.find((stats) => stats.data.userId === userId)!
   }
 }
-/*
-export class StubSportStatsGateway implements SportStatsGateway {
-  userData: UserMainData | undefined;
-
-  async fetchUserData(userId: number): Promise<UserMainData> {
-    return this.userData!;
-  }
-  fetchPerformanceData(userId: number): Promise<UserPerformance> {
-    throw new Error("Method not implemented.");
-  }
-  fetchActivityData(userId: number): Promise<UserActivity> {
-    throw new Error("Method not implemented.");
-  }
-  fetchAverageSessionData(userId: number): Promise<UserAverageSessions> {
-    throw new Error("Method not implemented.");
-  }
-}
-*/
 
 const baseUrl = "http://localhost:3000"
 
