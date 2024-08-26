@@ -3,14 +3,22 @@ import { PieChart, Pie, Cell, Label } from "recharts"
 
 const COLORS = ["#008000", "#FFFFFF"]
 
-const Progression = ({ todayScore }: any) => {
-  if (todayScore === undefined) {
+const Progression = ({
+  todayScore,
+  score,
+}: {
+  todayScore?: number
+  score?: number
+}) => {
+  const progress = todayScore !== undefined ? todayScore : score
+
+  if (progress === undefined) {
     return <div>No data available</div>
   }
 
   const data = [
-    { name: "Progress", value: todayScore },
-    { name: "Remaining", value: 1 - todayScore },
+    { name: "Progress", value: progress },
+    { name: "Remaining", value: 1 - progress },
   ]
 
   return (
@@ -51,7 +59,7 @@ const Progression = ({ todayScore }: any) => {
             />
           ))}
           <Label
-            value={`${todayScore * 100}%`}
+            value={`${progress * 100}%`}
             position="center"
             fontSize={18}
             fontWeight={700}

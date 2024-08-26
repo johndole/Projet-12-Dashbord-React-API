@@ -1,5 +1,4 @@
 import "./home.css"
-
 import { useState, useEffect } from "react"
 import Greetings from "../components/greetings/Greetings"
 import ActiviteQuotidienne from "../components/activiteQuotidienne/ActiviteQuotidienne"
@@ -57,7 +56,7 @@ function Dashboard(props: { userId: number }) {
     fetchData()
   }, [props.userId, sportStatsGateway])
 
-  if (!state) return <div>no data set</div>
+  if (!state) return <div>No data set</div>
 
   const {
     loading,
@@ -83,7 +82,10 @@ function Dashboard(props: { userId: number }) {
           <div className="session-container">
             <SessionMoyenne {...averageSessionData.data} />
             <Performance {...performanceData.data} />
-            <Progression {...userData.data} />
+            <Progression
+              todayScore={userData.data.todayScore}
+              score={userData.data.score}
+            />
           </div>
         </div>
         <div className="box2">

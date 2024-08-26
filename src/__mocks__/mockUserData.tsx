@@ -35,6 +35,6 @@ const mockUserData = [
       },
     },
   },
-];
+]
 
-export default mockUserData;
+export default mockUserData
