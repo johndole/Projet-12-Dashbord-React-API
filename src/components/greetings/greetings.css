@@ -1,0 +1,17 @@
+.greetings h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.greetings span {
+  font-size: 2.5rempx;
+  color: black;
+}
+
+.greetings p {
+  font-size: 18px;
+  color: black;
+  font-weight: 400;
+}

@@ -18,6 +18,37 @@ type Props = {
   }[]
 }
 
+const CustomLegend = (props: any) => {
+  const { payload } = props
+  return (
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      {payload.map((entry: any, index: number) => (
+        <div
+          key={`item-${index}`}
+          style={{ display: "flex", alignItems: "center", marginLeft: 20 }}
+        >
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 32 32"
+            style={{ marginRight: 5 }}
+          >
+            <circle
+              fill={entry.color}
+              cx="16"
+              cy="16"
+              r="16"
+            />
+          </svg>
+          <span style={{ color: "#000000", fontSize: 14, fontWeight: 500 }}>
+            {entry.value}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const ActiviteQuotidienne = (props: Props) => {
   const { sessions } = props
 
@@ -29,20 +60,12 @@ const ActiviteQuotidienne = (props: Props) => {
 
   // Calculate the minimum and maximum values for the kilogram and kcal data
   const kilogramValues = sessions.map((session) => session.kilogram)
-  const minKilogram = Math.min(...kilogramValues)
-  const maxKilogram = Math.max(...kilogramValues)
+  const minKilogram = Math.floor(Math.min(...kilogramValues)) // Round down to nearest integer
+  const maxKilogram = Math.ceil(Math.max(...kilogramValues) + 1) // Round up to nearest integer and add 1
 
   const calorieValues = sessions.map((session) => session.calories)
   const minCalories = Math.min(...calorieValues)
   const maxCalories = Math.max(...calorieValues)
-
-  // Calculate the middle value for the kilogram and kcal data
-  const middleKilogram = (minKilogram + maxKilogram) / 2
-  const middleCalories = (minCalories + maxCalories) / 2
-
-  // Define the ticks for the Y-axes
-  const kilogramTicks = [minKilogram, middleKilogram, maxKilogram]
-  const calorieTicks = [minCalories, middleCalories, maxCalories]
 
   return (
     <div className="ActiviteQuotidienne">
@@ -53,62 +76,79 @@ const ActiviteQuotidienne = (props: Props) => {
           height={320}
         >
           <BarChart
-            width={500}
-            height={300}
             data={sessions}
             margin={{
-              top: 5,
+              top: 20,
               right: 30,
-              left: 0,
+              left: 20,
               bottom: 5,
             }}
+            barGap={8}
+            barCategoryGap="20%"
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+            />
             <XAxis
               dataKey="day"
               tickFormatter={formatDay}
+              tick={{ fontSize: 14, fill: "#9B9EAC" }}
+              axisLine={false}
+              tickLine={false}
             />
-
             <YAxis
               yAxisId="left"
-              tickCount={3}
+              domain={[minKilogram - 1, maxKilogram]} // Adjusted maxKilogram + 1
+              tick={{ fontSize: 14, fill: "#9B9EAC" }}
+              axisLine={false}
+              tickLine={false}
               orientation="right"
-              domain={[minKilogram - 2, maxKilogram + 2]}
-              type="number"
-              allowDataOverflow={true}
-              ticks={kilogramTicks}
+              tickCount={4} // Ensure it shows only relevant ticks
+              allowDecimals={false} // Ensure only integers are shown
             />
-
             <YAxis
               yAxisId="right"
-              tickCount={3}
-              orientation="left"
               domain={[minCalories - 100, maxCalories + 100]}
-              type="number"
-              allowDataOverflow={true}
-              ticks={calorieTicks}
+              hide
+            />
+            <Tooltip
+              labelFormatter={() => ""} // Prevent the day from being displayed
+              contentStyle={{ backgroundColor: "#E60000", color: "#FFFFFF" }}
+              itemStyle={{ color: "#FFFFFF" }}
+              formatter={(value, name) => {
+                if (name === "kilogram") {
+                  return `${value} kg` // Ensure the unit is appended to the value
+                }
+                if (name === "calories") {
+                  return `${value} kcal` // Ensure the unit is appended to the value
+                }
+                return value
+              }}
             />
 
-            <Tooltip />
             <Legend
-              iconType="circle"
-              iconSize={8}
-              wrapperStyle={{ top: 15, right: 0, left: 100, fontSize: "14px" }} // Set font size to 14px
+              content={<CustomLegend />}
+              wrapperStyle={{
+                position: "absolute",
+                top: -35,
+                right: 30,
+              }}
             />
             <Bar
               dataKey="kilogram"
-              name="Poids(kg)" // Custom legend label
+              name="Poids (kg)"
               fill="#282D30"
-              barSize={15}
-              radius={[10, 10, 0, 0]}
+              barSize={7}
+              radius={[50, 50, 0, 0]}
               yAxisId="left"
             />
             <Bar
               dataKey="calories"
-              name="Calories brûlées(kcal)" // Custom legend label
+              name="Calories brûlées (kcal)"
               fill="#E60000"
-              barSize={15}
-              radius={[10, 10, 0, 0]}
+              barSize={7}
+              radius={[50, 50, 0, 0]}
               yAxisId="right"
             />
           </BarChart>

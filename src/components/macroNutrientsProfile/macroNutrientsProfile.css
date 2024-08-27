@@ -6,6 +6,7 @@
   background-color: #fbfbfb;
   width: 100%;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .icon {

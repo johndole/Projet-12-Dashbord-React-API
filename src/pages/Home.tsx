@@ -94,31 +94,31 @@ function Dashboard(props: { userId: number }) {
             keyDataValue="kCal"
             keyDataName="Calories"
             src="./src/assets/kcal.svg"
-            style={{ backgroundColor: "#ffa9a9" }}
+            style={{ backgroundColor: "#ffc2c2" }}
           />
 
           <MacroNutrientsProfile
             keyData={userData.data.keyData.proteinCount}
             keyDataValue="g"
             keyDataName="Protéines"
-            src="./src/assets/kcal.svg"
-            style={{ backgroundColor: "#ffa9a9" }}
+            src="./src/assets/chickenLeg.svg"
+            style={{ backgroundColor: "rgba(74, 184, 255, 0.1)" }}
           />
 
           <MacroNutrientsProfile
             keyData={userData.data.keyData.lipidCount}
             keyDataValue="g"
             keyDataName="Glucides"
-            src="./src/assets/kcal.svg"
-            style={{ backgroundColor: "#ffa9a9" }}
+            src="./src/assets/apple.svg"
+            style={{ backgroundColor: "rgba(249, 206, 35, 0.1)" }}
           />
 
           <MacroNutrientsProfile
             keyData={userData.data.keyData.carbohydrateCount}
             keyDataValue="g"
             keyDataName="Lipides"
-            src="./src/assets/kcal.svg"
-            style={{ backgroundColor: "#ffa9a9" }}
+            src="./src/assets/burger.svg"
+            style={{ backgroundColor: "rgba(253, 81, 129, 0.1)" }}
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import "./progression.css"
 import { PieChart, Pie, Cell, Label } from "recharts"
 
-const COLORS = ["#008000", "#FFFFFF"]
+const COLORS = ["#FF0000", "#F5F5F5"]
 
 const Progression = ({
   todayScore,
@@ -46,8 +46,9 @@ const Progression = ({
           cy={100}
           startAngle={90}
           endAngle={450}
-          innerRadius={60}
+          innerRadius={70}
           outerRadius={80}
+          cornerRadius={20} // Rounded ends for the arc
           paddingAngle={0}
           dataKey="value"
         >
@@ -59,21 +60,32 @@ const Progression = ({
             />
           ))}
           <Label
-            value={`${progress * 100}%`}
+            value={`${(progress * 100).toFixed(0)}%`}
             position="center"
-            fontSize={18}
+            fontSize={24}
             fontWeight={700}
             fill="black"
             textAnchor="middle"
-            width={100}
+            dy={-5} // Move the percentage slightly upwards
           />
           <Label
-            className="progression-label"
-            position="center"
-            dy={25}
-          >
-            de votre objectif
-          </Label>
+            value="de votre"
+            position="centerBottom"
+            fontSize={14}
+            fontWeight={400}
+            fill="gray"
+            dy={25} // Move "de votre" slightly downwards
+            textAnchor="middle"
+          />
+          <Label
+            value="objectif"
+            position="centerBottom"
+            fontSize={14}
+            fontWeight={400}
+            fill="gray"
+            dy={45} // Move "objectif" further downwards
+            textAnchor="middle"
+          />
         </Pie>
       </PieChart>
     </div>
