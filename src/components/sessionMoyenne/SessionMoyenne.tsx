@@ -166,6 +166,7 @@ const SessionMoyenne: React.FC<Props> = ({ sessions }) => {
             tickLine={false}
             interval={0}
             tickFormatter={(tick) => {
+              daysOfWeek
               if (tick === 1) return "L" // Only format visible ticks
               if (tick === 2) return "M"
               if (tick === 3) return "M"

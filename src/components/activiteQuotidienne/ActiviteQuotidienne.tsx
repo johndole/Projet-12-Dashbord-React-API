@@ -17,6 +17,26 @@ type Props = {
     calories: number
   }[]
 }
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const { kilogram, calories } = payload[0].payload
+
+    return (
+      <div
+        style={{
+          backgroundColor: "#E60000",
+          padding: "10px",
+          color: "#FFFFFF",
+        }}
+      >
+        <p>{`${kilogram} kg`}</p>
+        <p>{`${calories} kcal`}</p>
+      </div>
+    )
+  }
+
+  return null
+}
 
 const CustomLegend = (props: any) => {
   const { payload } = props
@@ -112,21 +132,8 @@ const ActiviteQuotidienne = (props: Props) => {
               domain={[minCalories - 100, maxCalories + 100]}
               hide
             />
-            <Tooltip
-              labelFormatter={() => ""} // Prevent the day from being displayed
-              contentStyle={{ backgroundColor: "#E60000", color: "#FFFFFF" }}
-              itemStyle={{ color: "#FFFFFF" }}
-              formatter={(value, name) => {
-                if (name === "kilogram") {
-                  return `${value} kg` // Ensure the unit is appended to the value
-                }
-                if (name === "calories") {
-                  return `${value} kcal` // Ensure the unit is appended to the value
-                }
-                return value
-              }}
-            />
-
+            <Tooltip content={<CustomTooltip />} />{" "}
+            {/* Use the custom tooltip */}
             <Legend
               content={<CustomLegend />}
               wrapperStyle={{
